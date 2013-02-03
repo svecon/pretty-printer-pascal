@@ -1,0 +1,374 @@
+const
+   MAX = 1000;
+type
+   TCislice = 0..9;
+   TCislo = array[0..MAX] of TCislice; { pozpatku - tj. x[i] = 10^i }
+
+
+
+
+
+   procedure Vytiskni( Co: TCislo );
+   var  i: integer;
+        UzBylaNenulovaCifra: boolean;
+   begin
+      UzBylaNenulovaCifra := FALSE;
+      for i:=MAX downto 0 do
+         if (Co[i]<>0) or UzBylaNenulovaCifra then
+         begin
+            write( Co[i] );
+            UzBylaNenulovaCifra := TRUE
+         end;
+      writeln
+   end;
+
+   procedure Dosad( Co: TCislice; var Kam: TCislo );
+   var  i: integer;
+   begin
+      Kam[0] := Co;
+      for i:=1 to MAX do
+         Kam[i] := 0
+   end;
+
+   procedure ZvetsOJedna( var Co: TCislo );
+   var  i: integer;
+   begin
+      i := 0;
+      {$B-}
+      while (i<=MAX) and (Co[i]=9) do
+      begin
+         Co[i] := 0;
+         Inc( i )
+      end;
+
+      if (i<=MAX) then
+                       Inc( Co[i] )
+   end;
+
+   procedure Vynasob( var Co: TCislo; Cim: TCislo );
+   var  PoziceVeVysledku: integer;
+        i, prenos, x: integer;
+        Vysledek: TCislo;
+   begin
+
+      prenos := 0;
+
+      for PoziceVeVysledku := 0 to MAX do
+      begin
+         x := prenos;
+         for i:=0 to PoziceVeVysledku do
+         { i .... (PoziceVeVysledku-i) }
+            x := x + Co[i] * Cim[ PoziceVeVysledku-i ];
+         Vysledek[ PoziceVeVysledku ] := x mod 10;
+         prenos := x div 10
+      end;
+
+      if prenos > 0 then RunError( 77 );
+
+      Co := Vysledek
+   end;
+
+var
+   Faktorial: TCislo;
+   Clen: TCislo;
+   i: integer;
+begin
+   Dosad( 1, Faktorial );
+   Dosad( 1, Clen );
+   for i:=2 to 200 do
+   begin
+      Vytiskni( Faktorial );
+      ZvetsOJedna( Clen );
+      Vynasob( Faktorial, Clen )
+   end;
+   Vytiskni( Faktorial )
+
+end.
+
+   Dosad( 1, Clen );
+   ZvetsOJedna( Clen );
+
+   Vytiskni( Clen );
+
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+   Vynasob( Clen, Clen );
+   Vytiskni( Clen );
+end.
+
+
+
+
+var
+   Faktorial: TCislo;
+   Clen: TCislo;
+   i: integer;
+begin
+   Dosad( 1, Faktorial );
+   for i:=1 to 100 do
+   begin
+      ZvetsOJedna( Faktorial );
+      Vytiskni( Faktorial )
+   end;
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+const
+   Navic = 7;
+   MAX   = 1000 + Navic;
+type
+   TCislice = 0..9;
+   TCislo = array[0..MAX] of TCislice;
+
+   procedure Vytiskni( Co: TCislo );
+   var  i: integer;
+   begin
+      write( Co[0],',' );
+      for i:=1 to MAX do
+         write( Co[i] );
+      writeln
+   end;
+
+   procedure Dosad( Co: TCislice; var Kam: TCislo );
+   var  i: integer;
+   begin
+      Kam[0] := Co;
+      for i:=1 to MAX do
+         Kam[i] := 0
+   end;
+
+   procedure Pricti( const Co: TCislo; var Kam: TCislo );
+   var i: integer;
+       prenos, x: integer;
+   begin
+
+      prenos := 0;
+      for i:= MAX downto 0 do
+      begin
+         x := Co[i] + Kam[i] + prenos;
+         Kam[i] := x mod 10;
+         prenos := x div 10
+      end;
+
+      if prenos > 0 then
+                      RunError( 77 )
+
+   end;
+
+   var
+       PrvniNenulovaPozice: integer;
+   procedure Vydel( var Co: TCislo; Cim: integer );
+   var delenec: integer;
+       i: integer;
+   begin
+
+      while (PrvniNenulovaPozice<=MAX)
+        and (Co[ PrvniNenulovaPozice ]=0) do
+                                 Inc( PrvniNenulovaPozice );
+
+      delenec := 0;
+      for i:=PrvniNenulovaPozice to MAX do
+      begin
+         delenec := 10*delenec + Co[i];
+
+         Co[i]   := delenec div Cim;
+         delenec := delenec mod Cim;
+      end
+   end;
+
+var
+   Soucet: TCislo;
+   JednaLomenoIFaktorial: TCislo;
+   i: integer;
+begin
+   PrvniNenulovaPozice := 0;
+
+   Dosad( 0, Soucet );
+   Dosad( 1, JednaLomenoIFaktorial );
+
+   i := 0;
+   while PrvniNenulovaPozice <= MAX do
+   begin
+      Pricti( JednaLomenoIFaktorial, Soucet );
+      Vydel(  JednaLomenoIFaktorial, i+1 );
+      i := i+1;
+   end;
+   Vytiskni( Soucet );
+   writeln( 'i=',i)`
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const
+   Navic = 7;
+   MAX   = 1000 + Navic;
+type
+   TCislice = 0..9;
+   TCislo = array[0..MAX] of TCislice;
+
+   procedure Vytiskni( Co: TCislo );
+   var  i: integer;
+   begin
+      write( Co[0],',' );
+      for i:=1 to MAX do
+         write( Co[i] );
+      writeln
+   end;
+
+   procedure Dosad( Co: TCislice; var Kam: TCislo );
+   var  i: integer;
+   begin
+      Kam[0] := Co;
+      for i:=1 to MAX do
+         Kam[i] := 0
+   end;
+
+   procedure Pricti( const Co: TCislo; var Kam: TCislo );
+   var i: integer;
+       prenos, x: integer;
+   begin
+
+      prenos := 0;
+      for i:= MAX downto 0 do
+      begin
+         x := Co[i] + Kam[i] + prenos;
+         Kam[i] := x mod 10;
+         prenos := x div 10
+      end;
+
+      if prenos > 0 then
+                      RunError( 77 )
+
+   end;
+
+   procedure Vydel( var Co: TCislo; Cim: integer );
+   var delenec: integer;
+       i: integer;
+   begin
+
+      delenec := 0;
+      for i:=0 to MAX do
+      begin
+         delenec := 10*delenec + Co[i];
+
+         Co[i]   := delenec div Cim;
+         delenec := delenec mod Cim;
+      end
+   end;
+
+var
+   Soucet: TCislo;
+   JednaLomenoIFaktorial: TCislo;
+   i: integer;
+begin
+   Dosad( 0, Soucet );
+   Dosad( 1, JednaLomenoIFaktorial );
+
+   for i:=0 to 1000 do
+   begin
+      Pricti( JednaLomenoIFaktorial, Soucet );
+      Vydel(  JednaLomenoIFaktorial, i+1 ) {}
+   end;
+   Vytiskni( Soucet )
+end.
+(*******************************
+var x: TCislo;
+begin
+   Dosad( 8, x );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 1000 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+   Vydel( x, 2 );
+   Vytiskni( x );
+
+
+
+
+   Dosad( 0, x );
+   x[MAX] := 1;
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+   Pricti( x, x );
+   Vytiskni( x );
+end.
+
+***********************************)
+
+
+
+
+
+
+
+
+
+
+
