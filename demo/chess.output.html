@@ -1,0 +1,817 @@
+<html>
+    <head>
+	<meta charset="utf-8">
+	<title>Zápočťák > Pretty Printer</title>
+	<style>
+	    /**
+	     * SyntaxHighlighter styles
+	     * http://alexgorbatchev.com/SyntaxHighlighter
+	     */
+	    body { font-size: 17px; } 
+
+	    .prettyprinter,
+	    .prettyprinter a,
+	    .prettyprinter div,
+	    .prettyprinter code,
+	    .prettyprinter table,
+	    .prettyprinter table td,
+	    .prettyprinter table tr,
+	    .prettyprinter table tbody,
+	    .prettyprinter table thead,
+	    .prettyprinter table caption,
+	    .prettyprinter textarea {
+		-moz-border-radius: 0 0 0 0;
+		-webkit-border-radius: 0 0 0 0;
+		background: none;
+		border: 0;
+		border-spacing: 0;
+		bottom: auto;
+		float: none;
+		height: auto;
+		left: auto;
+		line-height: 1.1em;
+		margin: 0;
+		outline: 0;
+		overflow: visible;
+		padding: 0;
+		position: static;
+		right: auto;
+		text-align: left;
+		top: auto;
+		vertical-align: baseline;
+		width: auto;
+		box-sizing: content-box;
+		font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+		font-weight: normal;
+		font-style: normal;
+		font-size: 1em;
+		min-height: inherit;
+		min-height: auto;
+	    }
+
+	    .prettyprinter {
+		background-color: white;
+		width: 100%;
+		margin: 1em 0 1em 0;
+		position: relative;
+		font-size: 1em;
+	    }
+
+	    .prettyprinter tr:nth-of-type(even) {
+		background: rgba(220, 220, 220, .25);
+	    }
+
+	    .prettyprinter .gutter {
+		color: #afafaf;
+		border-right: 3px solid #6ce26c;
+		text-align: right;
+		padding: 0 .5em;
+		vertical-align: top;
+	    }
+
+	    .prettyprinter tr.highlighted { background-color: #e0e0e0; }
+	    .prettyprinter tr.highlighted .gutter {
+		background-color: #6ce26c;
+		color: white;
+	    }
+
+	    .prettyprinter .plain,
+	    .prettyprinter .plain a {           color: black; }
+	    .prettyprinter .comments,
+	    .prettyprinter .comments a {        color: #008200; }
+	    .prettyprinter .string,
+	    .prettyprinter .string a {          color: blue; }
+	    .prettyprinter .keyword {           color: #006699; }
+	    .prettyprinter .preprocessor {      color: gray; }
+	    .prettyprinter .variable {          color: #aa7700; }
+	    .prettyprinter .value {             color: #009900; }
+	    .prettyprinter .functions {         color: #ff1493; }
+	    .prettyprinter .constants {         color: #0066cc; }
+	    .prettyprinter .script {
+		font-weight: bold;
+		color: #006699;
+		background-color: none;
+	    }
+	    .prettyprinter .color1,
+	    .prettyprinter .color1 a {          color: gray; }
+	    .prettyprinter .color2,
+	    .prettyprinter .color2 a {          color: #ff1493; }
+	    .prettyprinter .color3,
+	    .prettyprinter .color3 a {          color: red; }
+
+	    .prettyprinter .keyword { font-weight: bold; }
+
+	    .prettyprinter .code { padding-left: 1em; }
+	    .prettyprinter tr:hover { background: rgba(0, 102, 153, .2); }
+	</style>     
+    </head>
+
+    <body>
+	       <table border=0 class="prettyprinter">
+<tr><td class="gutter">1</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">2</td><td class="code"><code class="comments">{* DISPLAY.PAS: This file contains the display-oriented routines. *}</code></td></tr>
+<tr><td class="gutter">3</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">4</td><td class="code"></td></tr>
+<tr><td class="gutter">5</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">6</td><td class="code"><code class="comments">{* Display Init: initialize the Turbo Pascal VGA high resolution graphics *}</code></td></tr>
+<tr><td class="gutter">7</td><td class="code"><code class="comments">{* driver and load in the character fonts. Displays error messages and *}</code></td></tr>
+<tr><td class="gutter">8</td><td class="code"><code class="comments">{* aborts the program if something goes wrong. *}</code></td></tr>
+<tr><td class="gutter">9</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">10</td><td class="code"><code class="keyword">procedure</code> DisplayInit;</td></tr>
+<tr><td class="gutter">11</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">12</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClrScr;</td></tr>
+<tr><td class="gutter">13</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write <code class="string">'(Starting KC Chess...'</code>);</td></tr>
+<tr><td class="gutter">14</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NoSound;</td></tr>
+<tr><td class="gutter">15</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphDriver := VGA;</td></tr>
+<tr><td class="gutter">16</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GraphMode := VGAHi;</td></tr>
+<tr><td class="gutter">17</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InitGraph (GraphDriver, GraphMode, <code class="string">''</code>);</td></tr>
+<tr><td class="gutter">18</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> GraphResult &lt;&gt; grOk <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">19</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">20</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln;</td></tr>
+<tr><td class="gutter">21</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln;</td></tr>
+<tr><td class="gutter">22</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln <code class="string">'(Error using graphics driver file "EGAVGA.BGI" &lt;&lt;or&gt;&gt; this computer does'</code>);</td></tr>
+<tr><td class="gutter">23</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln <code class="string">'(not have a VGA graphics card. Aborting'</code>);</td></tr>
+<tr><td class="gutter">24</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Halt (1);</td></tr>
+<tr><td class="gutter">25</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">26</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">27</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> GraphResult &lt;&gt; grOk <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">28</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">29</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CloseGraph;</td></tr>
+<tr><td class="gutter">30</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln <code class="string">'(Error in accessing font file "TRIP.CHR". Aborting!'</code>);</td></tr>
+<tr><td class="gutter">31</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Halt (1);</td></tr>
+<tr><td class="gutter">32</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">33</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">34</td><td class="code"></td></tr>
+<tr><td class="gutter">35</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">36</td><td class="code"><code class="comments">{* Load Piece Images: from the file "PIECES.IMG". These are the pixel *}</code></td></tr>
+<tr><td class="gutter">37</td><td class="code"><code class="comments">{* images of all of the pieces, including the 'piece' BLANK. Checks for *}</code></td></tr>
+<tr><td class="gutter">38</td><td class="code"><code class="comments">{* I/O errors and aborts the program if there are any. *}</code></td></tr>
+<tr><td class="gutter">39</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">40</td><td class="code"><code class="keyword">procedure</code> LoadPieceImages;</td></tr>
+<tr><td class="gutter">41</td><td class="code"><code class="keyword">var</code> ImageFile : file <code class="keyword">of</code> ImageType;</td></tr>
+<tr><td class="gutter">42</td><td class="code">IOerror : boolean;</td></tr>
+<tr><td class="gutter">43</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">44</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new (ImageStore);</td></tr>
+<tr><td class="gutter">45</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assign (ImageFile, <code class="string">'PIECES.IMG'</code>);</td></tr>
+<tr><td class="gutter">46</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reset (ImageFile);</td></tr>
+<tr><td class="gutter">47</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IOerror := IOResult &lt;&gt; 0;</td></tr>
+<tr><td class="gutter">48</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> <code class="keyword">not</code> IOerror <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">49</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">50</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read (ImageFile, ImageStore^);</td></tr>
+<tr><td class="gutter">51</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IOerror := IOResult &lt;&gt; 0;</td></tr>
+<tr><td class="gutter">52</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> <code class="keyword">not</code> IOerror <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">53</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;close (ImageFile);</td></tr>
+<tr><td class="gutter">54</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">55</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> IOerror <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">56</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">57</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CloseGraph;</td></tr>
+<tr><td class="gutter">58</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln <code class="string">'(IO error trying to access images file "PIECES.IMG". Aborting!'</code>);</td></tr>
+<tr><td class="gutter">59</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Halt (1);</td></tr>
+<tr><td class="gutter">60</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">61</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">62</td><td class="code"></td></tr>
+<tr><td class="gutter">63</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">64</td><td class="code"><code class="comments">{* Display Title Screen: Display the title, authors and notes on the *}</code></td></tr>
+<tr><td class="gutter">65</td><td class="code"><code class="comments">{* screen when the program starts, in a variety of fonts, sizes, and *}</code></td></tr>
+<tr><td class="gutter">66</td><td class="code"><code class="comments">{* colors. Then wait for user to type a key. The internal subroutine *}</code></td></tr>
+<tr><td class="gutter">67</td><td class="code"><code class="comments">{* CenterTitle will display its string argument, centered on the screen, *}</code></td></tr>
+<tr><td class="gutter">68</td><td class="code"><code class="comments">{* on the given pixel row. *}</code></td></tr>
+<tr><td class="gutter">69</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">70</td><td class="code"><code class="keyword">procedure</code> DisplayTitleScreen;</td></tr>
+<tr><td class="gutter">71</td><td class="code"><code class="keyword">var</code> key : char;</td></tr>
+<tr><td class="gutter">72</td><td class="code"></td></tr>
+<tr><td class="gutter">73</td><td class="code"><code class="keyword">procedure</code> CenterTitle (row : integer; str : string80);</td></tr>
+<tr><td class="gutter">74</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">75</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (320 - TextWidth(str) div 2, row, str);</td></tr>
+<tr><td class="gutter">76</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">77</td><td class="code"></td></tr>
+<tr><td class="gutter">78</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">79</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClearDevice;</td></tr>
+<tr><td class="gutter">80</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightCyan);</td></tr>
+<tr><td class="gutter">81</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 26);</td></tr>
+<tr><td class="gutter">82</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (0, <code class="string">'KC CHESS'</code>);</td></tr>
+<tr><td class="gutter">83</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightGreen);</td></tr>
+<tr><td class="gutter">84</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 3);</td></tr>
+<tr><td class="gutter">85</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (200, <code class="string">'by Craig Bruce and Kevin Phillips, 06-Apr-90.'</code>);</td></tr>
+<tr><td class="gutter">86</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">87</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (240, <code class="string">'This program is Public Domain software.'</code>); <code class="comments">{*** that's right ***}</code></td></tr>
+<tr><td class="gutter">88</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightGray);</td></tr>
+<tr><td class="gutter">89</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">90</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (300, <code class="string">'This program was written using'</code>);</td></tr>
+<tr><td class="gutter">91</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (330, <code class="string">'Turbo Pascal 5.5 (c) Borland International, Inc.'</code>); <code class="comments">{*** required message ***}</code></td></tr>
+<tr><td class="gutter">92</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (360, <code class="string">'as the undergraduate final project for Dr. J. D. Horton'</code>);</td></tr>
+<tr><td class="gutter">93</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (390, <code class="string">'at the University of New Brunswick.'</code>);</td></tr>
+<tr><td class="gutter">94</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LoadPieceImages; <code class="comments">{*** while user is reading title screen ***}</code></td></tr>
+<tr><td class="gutter">95</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (DefaultFont, HorizDir, 2);</td></tr>
+<tr><td class="gutter">96</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** display some piece images on the title screen ***}</code></td></tr>
+<tr><td class="gutter">97</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PutImage (320-WIDE*2, 135, ImageStore^[PAWN, C_WHITE, S_DARK], 0);</td></tr>
+<tr><td class="gutter">98</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PutImage (320-WIDE*1, 135, ImageStore^[KING, C_BLACK, S_LIGHT], 0);</td></tr>
+<tr><td class="gutter">99</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PutImage (320+WIDE*0, 135, ImageStore^[QUEEN, C_WHITE, S_DARK], 0);</td></tr>
+<tr><td class="gutter">100</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PutImage (320+WIDE*1, 135, ImageStore^[KNIGHT, C_BLACK, S_LIGHT], 0);</td></tr>
+<tr><td class="gutter">101</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Yellow);</td></tr>
+<tr><td class="gutter">102</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterTitle (450, <code class="string">'Press any key to begin'</code>);</td></tr>
+<tr><td class="gutter">103</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key := ReadKey;</td></tr>
+<tr><td class="gutter">104</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">105</td><td class="code"></td></tr>
+<tr><td class="gutter">106</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">107</td><td class="code"><code class="comments">{* Make Sound: Will make either the "good" sound (a beep), or the "bad" *}</code></td></tr>
+<tr><td class="gutter">108</td><td class="code"><code class="comments">{* sound (a buzz), if the sound option is on. *}</code></td></tr>
+<tr><td class="gutter">109</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">110</td><td class="code"><code class="keyword">procedure</code> MakeSound (Good : boolean);</td></tr>
+<tr><td class="gutter">111</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">112</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Game.SoundFlag) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">113</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">114</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Good) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">115</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">116</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound (650); <code class="comments">{*** beep = 650 Hz ***}</code></td></tr>
+<tr><td class="gutter">117</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay (100);</td></tr>
+<tr><td class="gutter">118</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">119</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">120</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">121</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound (110); <code class="comments">{*** buzz = 110 Hz ***}</code></td></tr>
+<tr><td class="gutter">122</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay (350);</td></tr>
+<tr><td class="gutter">123</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">124</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NoSound;</td></tr>
+<tr><td class="gutter">125</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">126</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">127</td><td class="code"></td></tr>
+<tr><td class="gutter">128</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">129</td><td class="code"><code class="comments">{* Display Square: and the piece on it on the main game screen, given the *}</code></td></tr>
+<tr><td class="gutter">130</td><td class="code"><code class="comments">{* row and column and whether to display it in the square's natural shade *}</code></td></tr>
+<tr><td class="gutter">131</td><td class="code"><code class="comments">{* or the cursor color. *}</code></td></tr>
+<tr><td class="gutter">132</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">133</td><td class="code"><code class="keyword">procedure</code> DisplaySquare (Row, Col : RowColType; cursor : boolean);</td></tr>
+<tr><td class="gutter">134</td><td class="code"><code class="keyword">var</code> x, y : integer;</td></tr>
+<tr><td class="gutter">135</td><td class="code">SquareColor : SquareColorType;</td></tr>
+<tr><td class="gutter">136</td><td class="code">Piece : PieceType;</td></tr>
+<tr><td class="gutter">137</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">138</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Piece := Board[Row, Col];</td></tr>
+<tr><td class="gutter">139</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** get the starting pixel location ***}</code></td></tr>
+<tr><td class="gutter">140</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := BOARD_X1 + (Col - 1) * WIDE;</td></tr>
+<tr><td class="gutter">141</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y := BOARD_Y1 + (BOARD_SIZE - Row) * HIGH;</td></tr>
+<tr><td class="gutter">142</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** get the square color ***}</code></td></tr>
+<tr><td class="gutter">143</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> cursor <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">144</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">145</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SquareColor := S_CURSOR;</td></tr>
+<tr><td class="gutter">146</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">147</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">148</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">149</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Row + Col) mod 2 = 0 <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">150</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SquareColor := S_DARK</td></tr>
+<tr><td class="gutter">151</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">152</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SquareColor := S_LIGHT;</td></tr>
+<tr><td class="gutter">153</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">154</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** put image onto the screen ***}</code></td></tr>
+<tr><td class="gutter">155</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PutImage (x, y, ImageStore^ [Piece.image, Piece.color, SquareColor], 0);</td></tr>
+<tr><td class="gutter">156</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">157</td><td class="code"></td></tr>
+<tr><td class="gutter">158</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">159</td><td class="code"><code class="comments">{* Display Clear Lines: Erase all text from the given pixel row for the *}</code></td></tr>
+<tr><td class="gutter">160</td><td class="code"><code class="comments">{* given number of pixel rows, on the conversation area. *}</code></td></tr>
+<tr><td class="gutter">161</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">162</td><td class="code"><code class="keyword">procedure</code> DisplayClearLines (from, count : integer);</td></tr>
+<tr><td class="gutter">163</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">164</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, DarkGray);</td></tr>
+<tr><td class="gutter">165</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (MSG_BOXX1 + 1, from, MSG_BOXX2 - 1, from + count - 1);</td></tr>
+<tr><td class="gutter">166</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">167</td><td class="code"></td></tr>
+<tr><td class="gutter">168</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">169</td><td class="code"><code class="comments">{* Center Text: Display the given string, centered, on the given pixel row *}</code></td></tr>
+<tr><td class="gutter">170</td><td class="code"><code class="comments">{* of the conversation area. *}</code></td></tr>
+<tr><td class="gutter">171</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">172</td><td class="code"><code class="keyword">procedure</code> CenterText (row : integer; str : string80);</td></tr>
+<tr><td class="gutter">173</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">174</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (MSG_MIDX - TextWidth(str) div 2, row, str);</td></tr>
+<tr><td class="gutter">175</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">176</td><td class="code"></td></tr>
+<tr><td class="gutter">177</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">178</td><td class="code"><code class="comments">{* Display Player Info: Display the name, elapsed time, player type and *}</code></td></tr>
+<tr><td class="gutter">179</td><td class="code"><code class="comments">{* skill level, last move, and whether in check or not, for the given *}</code></td></tr>
+<tr><td class="gutter">180</td><td class="code"><code class="comments">{* player starting at the given pixel row on the conversation area (in *}</code></td></tr>
+<tr><td class="gutter">181</td><td class="code"><code class="comments">{* the player status box). *}</code></td></tr>
+<tr><td class="gutter">182</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">183</td><td class="code"><code class="keyword">procedure</code> DisplayPlayerInfo (row : integer; color : PieceColorType);</td></tr>
+<tr><td class="gutter">184</td><td class="code"><code class="keyword">var</code> cstr : string10;</td></tr>
+<tr><td class="gutter">185</td><td class="code">bstr : string80;</td></tr>
+<tr><td class="gutter">186</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">187</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">188</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Yellow);</td></tr>
+<tr><td class="gutter">189</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with Player[color] <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">190</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">191</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row, Name);</td></tr>
+<tr><td class="gutter">192</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI, TimeString (ElapsedTime));</td></tr>
+<tr><td class="gutter">193</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> IsHuman <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">194</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstr := <code class="string">'Human'</code></td></tr>
+<tr><td class="gutter">195</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">196</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">197</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Str (LookAhead, cstr);</td></tr>
+<tr><td class="gutter">198</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstr := <code class="string">'Machine Level '</code> + cstr;</td></tr>
+<tr><td class="gutter">199</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> PosEval <code class="keyword">then</code> bstr := bstr + <code class="string">'+'</code>;</td></tr>
+<tr><td class="gutter">200</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">201</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI * 2, bstr);</td></tr>
+<tr><td class="gutter">202</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI * 3, <code class="string">'Last: '</code> + MoveStr (LastMove));</td></tr>
+<tr><td class="gutter">203</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> InCheck <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">204</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstr := <code class="string">'In Check'</code></td></tr>
+<tr><td class="gutter">205</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">206</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstr := <code class="string">'Ok'</code>;</td></tr>
+<tr><td class="gutter">207</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI * 4, bstr);</td></tr>
+<tr><td class="gutter">208</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">209</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">210</td><td class="code"></td></tr>
+<tr><td class="gutter">211</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">212</td><td class="code"><code class="comments">{* Display Instructions: display the given set of instructions at the *}</code></td></tr>
+<tr><td class="gutter">213</td><td class="code"><code class="comments">{* bottom of the screen in the instruction area. OutLine will display the *}</code></td></tr>
+<tr><td class="gutter">214</td><td class="code"><code class="comments">{* given instructions on the given instruction line number. *}</code></td></tr>
+<tr><td class="gutter">215</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">216</td><td class="code"><code class="keyword">procedure</code> DisplayInstructions (InstrSet : InstructionType);</td></tr>
+<tr><td class="gutter">217</td><td class="code"><code class="keyword">const</code> CHI = 11; <code class="comments">{*** character height ***}</code></td></tr>
+<tr><td class="gutter">218</td><td class="code"></td></tr>
+<tr><td class="gutter">219</td><td class="code"><code class="keyword">procedure</code> OutLine (LineNum : integer; OutText : string80);</td></tr>
+<tr><td class="gutter">220</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">221</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (0, INSTR_LINE + CHI * LineNum, OutText);</td></tr>
+<tr><td class="gutter">222</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">223</td><td class="code"></td></tr>
+<tr><td class="gutter">224</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">225</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, Black);</td></tr>
+<tr><td class="gutter">226</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (0, INSTR_LINE, GetMaxX, GetMaxY);</td></tr>
+<tr><td class="gutter">227</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (DefaultFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">228</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightRed);</td></tr>
+<tr><td class="gutter">229</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case InstrSet <code class="keyword">of</code></td></tr>
+<tr><td class="gutter">230</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_MAIN: </td></tr>
+<tr><td class="gutter">231</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">232</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'MAIN MENU RETURN = play, F = File System'</code>);</td></tr>
+<tr><td class="gutter">233</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'H = Help, G = Goto move, W = Watch game, O = Options, P = Player info'</code>);</td></tr>
+<tr><td class="gutter">234</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Q = Quit, N = New game, S = Setup board, T = Take-Back Move, U = Un-takeback'</code>);</td></tr>
+<tr><td class="gutter">235</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">236</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_GAME : </td></tr>
+<tr><td class="gutter">237</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">238</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'GAME MENU'</code>);</td></tr>
+<tr><td class="gutter">239</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Human Player: use Cursor Keys, BACKSPACE, and RETURN/SPACE. ESC = main menu'</code>);</td></tr>
+<tr><td class="gutter">240</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'M = force computer to Move, H = Hint, A = Attack/protect, C = Check moves'</code>);</td></tr>
+<tr><td class="gutter">241</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">242</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_SETUP : </td></tr>
+<tr><td class="gutter">243</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">244</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SETUP MENU'</code>);</td></tr>
+<tr><td class="gutter">245</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Use cursor keys. Then type K, Q, R, B, N or P to set piece or SPACE to remove.'</code>);</td></tr>
+<tr><td class="gutter">246</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'RETURN = exit, ESC = exit recalling old setup; D = default, C = clear board.'</code>);</td></tr>
+<tr><td class="gutter">247</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">248</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_SETUP_COLOR : </td></tr>
+<tr><td class="gutter">249</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">250</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SETUP MENU - PIECE COLOR SET'</code>);</td></tr>
+<tr><td class="gutter">251</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Type B to create a BLACK piece'</code>);</td></tr>
+<tr><td class="gutter">252</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Type W to create a WHITE piece'</code>);</td></tr>
+<tr><td class="gutter">253</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">254</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_SETUP_MOVED : </td></tr>
+<tr><td class="gutter">255</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">256</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SETUP MENU - PIECE MOVED SET'</code>);</td></tr>
+<tr><td class="gutter">257</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Has this piece been moved from its starting position at any time since the'</code>);</td></tr>
+<tr><td class="gutter">258</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'start of the game (Y/N)?'</code>);</td></tr>
+<tr><td class="gutter">259</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">260</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_SETUP_MOVENUM : </td></tr>
+<tr><td class="gutter">261</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">262</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SETUP MENU - SET MOVE NUMBER and COLOR'</code>);</td></tr>
+<tr><td class="gutter">263</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Enter the number then whose turn the next move of the game will be.'</code>);</td></tr>
+<tr><td class="gutter">264</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Use BACKSPACE to edit value, and RETURN to enter it.'</code>);</td></tr>
+<tr><td class="gutter">265</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">266</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_PLAYER : </td></tr>
+<tr><td class="gutter">267</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">268</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SET PLAYER INFO'</code>);</td></tr>
+<tr><td class="gutter">269</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Type value, use BACKSPACE to edit and press RETURN after each field.'</code>);</td></tr>
+<tr><td class="gutter">270</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'For the player type: H = Human and M = Machine. Pos Eval is part of skill level.'</code>);</td></tr>
+<tr><td class="gutter">271</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">272</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_OPTIONS : </td></tr>
+<tr><td class="gutter">273</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">274</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'SET OPTIONS'</code>);</td></tr>
+<tr><td class="gutter">275</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Type value, use BACKSPACE to edit and press RETURN after each field.'</code>);</td></tr>
+<tr><td class="gutter">276</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Press RETURN only to preserve current setting.'</code>);</td></tr>
+<tr><td class="gutter">277</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">278</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_FILE : </td></tr>
+<tr><td class="gutter">279</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">280</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'FILE MENU'</code>);</td></tr>
+<tr><td class="gutter">281</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'L = Load Game, S = Save Game, D = Directory, P = Print Game'</code>);</td></tr>
+<tr><td class="gutter">282</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'ESC = return to Main Menu'</code>);</td></tr>
+<tr><td class="gutter">283</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">284</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_FILE_INPUT: </td></tr>
+<tr><td class="gutter">285</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">286</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'FILE NAME INPUT'</code>);</td></tr>
+<tr><td class="gutter">287</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Please enter the name of the file you wish to use.'</code>);</td></tr>
+<tr><td class="gutter">288</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Press RETURN only for default file name.'</code>);</td></tr>
+<tr><td class="gutter">289</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">290</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_WATCH : </td></tr>
+<tr><td class="gutter">291</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">292</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'WATCH MODE'</code>);</td></tr>
+<tr><td class="gutter">293</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Press any key to return to Main Menu.'</code>);</td></tr>
+<tr><td class="gutter">294</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">295</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_GOTO : </td></tr>
+<tr><td class="gutter">296</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">297</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'GOTO MOVE NUMBER'</code>);</td></tr>
+<tr><td class="gutter">298</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Please enter the move number and then the color to move.'</code>);</td></tr>
+<tr><td class="gutter">299</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'to use. Press RETURN only for default file.'</code>);</td></tr>
+<tr><td class="gutter">300</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">301</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INS_PAWN_PROMOTE : </td></tr>
+<tr><td class="gutter">302</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">303</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (0, <code class="string">'HUMAN PLAYER PAWN PROMOTION'</code>);</td></tr>
+<tr><td class="gutter">304</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (1, <code class="string">'Press the letter of the piece you wish to promote the pawn to:'</code>);</td></tr>
+<tr><td class="gutter">305</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutLine (2, <code class="string">'Q = Queen, R = Rook, B = Bishop, N = kNight.'</code>);</td></tr>
+<tr><td class="gutter">306</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">307</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">308</td><td class="code"><code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">309</td><td class="code"></td></tr>
+<tr><td class="gutter">310</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">311</td><td class="code"><code class="comments">{* Display Board: call DisplaySquare for each square on the board. A *}</code></td></tr>
+<tr><td class="gutter">312</td><td class="code"><code class="comments">{* small dot is displayed on the screen immediately before the square *}</code></td></tr>
+<tr><td class="gutter">313</td><td class="code"><code class="comments">{* image is displayed to show that the screen is being updated, even if *}</code></td></tr>
+<tr><td class="gutter">314</td><td class="code"><code class="comments">{* the board is being displayed over itself with no changes. *}</code></td></tr>
+<tr><td class="gutter">315</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">316</td><td class="code"><code class="keyword">procedure</code> DisplayBoard;</td></tr>
+<tr><td class="gutter">317</td><td class="code"><code class="keyword">var</code> row, col : RowColType;</td></tr>
+<tr><td class="gutter">318</td><td class="code">x,y : integer;</td></tr>
+<tr><td class="gutter">319</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">320</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, LightCyan);</td></tr>
+<tr><td class="gutter">321</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> row := 1 to BOARD_SIZE <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">322</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> col := 1 to BOARD_SIZE <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">323</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">324</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := BOARD_X1 + (Col-1) * WIDE;</td></tr>
+<tr><td class="gutter">325</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y := BOARD_Y1 + (BOARD_SIZE - Row) * HIGH;</td></tr>
+<tr><td class="gutter">326</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (x + 23, y + 23, x + 26, y + 26);</td></tr>
+<tr><td class="gutter">327</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplaySquare (row, col, false);</td></tr>
+<tr><td class="gutter">328</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">329</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">330</td><td class="code"></td></tr>
+<tr><td class="gutter">331</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">332</td><td class="code"><code class="comments">{* Get Finish Reason: given the completion status variables in the Game *}</code></td></tr>
+<tr><td class="gutter">333</td><td class="code"><code class="comments">{* global data structure, this routine returns the reason and the winner *}</code></td></tr>
+<tr><td class="gutter">334</td><td class="code"><code class="comments">{* (if any) of the game. The reason can be that a player exceeded the *}</code></td></tr>
+<tr><td class="gutter">335</td><td class="code"><code class="comments">{* time limit, there are more moves than can be stored in the game, *}</code></td></tr>
+<tr><td class="gutter">336</td><td class="code"><code class="comments">{* stalemate (fifty non-developmental moves or player cannot move, or *}</code></td></tr>
+<tr><td class="gutter">337</td><td class="code"><code class="comments">{* last but not least, checkmate. *}</code></td></tr>
+<tr><td class="gutter">338</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">339</td><td class="code"><code class="keyword">procedure</code> GetFinishReason (<code class="keyword">var</code> Reason : string80; <code class="keyword">var</code> IsWinner : boolean;</td></tr>
+<tr><td class="gutter">340</td><td class="code"><code class="keyword">var</code> Winner : PieceColorType);</td></tr>
+<tr><td class="gutter">341</td><td class="code"><code class="keyword">var</code> KingInCheck : boolean;</td></tr>
+<tr><td class="gutter">342</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">343</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.TimeOutWhite or Game.TimeOutBlack <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">344</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">345</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason := <code class="string">'Time-Out'</code>;</td></tr>
+<tr><td class="gutter">346</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.TimeOutWhite and Game.TimeOutBlack <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">347</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsWinner := false</td></tr>
+<tr><td class="gutter">348</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">349</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">350</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsWinner := true;</td></tr>
+<tr><td class="gutter">351</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.TimeOutWhite <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">352</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner := C_BLACK</td></tr>
+<tr><td class="gutter">353</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">354</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner := C_WHITE;</td></tr>
+<tr><td class="gutter">355</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">356</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">357</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">358</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">359</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.NoStorage <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">360</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">361</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason := <code class="string">'Game Too Long'</code>;</td></tr>
+<tr><td class="gutter">362</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsWinner := false;</td></tr>
+<tr><td class="gutter">363</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">364</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">365</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">366</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KingInCheck := Player[C_WHITE].InCheck or Player[C_BLACK].InCheck;</td></tr>
+<tr><td class="gutter">367</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.Stalemate or <code class="keyword">not</code> KingInCheck <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">368</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">369</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason := <code class="string">'Stalemate'</code>;</td></tr>
+<tr><td class="gutter">370</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsWinner := false;</td></tr>
+<tr><td class="gutter">371</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">372</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">373</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">374</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason := <code class="string">'Checkmate'</code>;</td></tr>
+<tr><td class="gutter">375</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsWinner := true;</td></tr>
+<tr><td class="gutter">376</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Player[C_WHITE].InCheck <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">377</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner := C_BLACK</td></tr>
+<tr><td class="gutter">378</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">379</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Winner := C_WHITE;</td></tr>
+<tr><td class="gutter">380</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">381</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">382</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">383</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">384</td><td class="code"></td></tr>
+<tr><td class="gutter">385</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">386</td><td class="code"><code class="comments">{* Display Whose Move: displays the move number and color of the current *}</code></td></tr>
+<tr><td class="gutter">387</td><td class="code"><code class="comments">{* move in the conversation area. If the game is finished, display the *}</code></td></tr>
+<tr><td class="gutter">388</td><td class="code"><code class="comments">{* reason, and if the fifty move stalemate is close, displays a warning. *}</code></td></tr>
+<tr><td class="gutter">389</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">390</td><td class="code"><code class="keyword">procedure</code> DisplayWhoseMove;</td></tr>
+<tr><td class="gutter">391</td><td class="code"><code class="keyword">var</code> cstr : string10;</td></tr>
+<tr><td class="gutter">392</td><td class="code">mstr : string80;</td></tr>
+<tr><td class="gutter">393</td><td class="code">Reason : string80;</td></tr>
+<tr><td class="gutter">394</td><td class="code">Winner : PieceColorType;</td></tr>
+<tr><td class="gutter">395</td><td class="code">IsWinner : boolean;</td></tr>
+<tr><td class="gutter">396</td><td class="code">Turn : PieceColorType;</td></tr>
+<tr><td class="gutter">397</td><td class="code">OutMove : integer;</td></tr>
+<tr><td class="gutter">398</td><td class="code">NoDevCount : integer;</td></tr>
+<tr><td class="gutter">399</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">400</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** move number and color ***}</code></td></tr>
+<tr><td class="gutter">401</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.GameFinished <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">402</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutMove := Game.MoveNum - 1</td></tr>
+<tr><td class="gutter">403</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">404</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutMove := Game.MoveNum;</td></tr>
+<tr><td class="gutter">405</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Str ((OutMove + 1) div 2, cstr);</td></tr>
+<tr><td class="gutter">406</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mstr := <code class="string">'Move '</code> + cstr + <code class="string">'-'</code>;</td></tr>
+<tr><td class="gutter">407</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> OutMove mod 2 = 1 <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">408</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">409</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mstr := mstr + <code class="string">'White'</code>;</td></tr>
+<tr><td class="gutter">410</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Turn := C_WHITE;</td></tr>
+<tr><td class="gutter">411</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">412</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">413</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">414</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mstr := mstr + <code class="string">'Black'</code>;</td></tr>
+<tr><td class="gutter">415</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Turn := C_BLACK;</td></tr>
+<tr><td class="gutter">416</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">417</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">418</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Yellow);</td></tr>
+<tr><td class="gutter">419</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (MSG_SCORE, MSG_POS_EVAL+8-MSG_SCORE);</td></tr>
+<tr><td class="gutter">420</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (MSG_MOVENUM, 80);</td></tr>
+<tr><td class="gutter">421</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_MOVENUM, mstr);</td></tr>
+<tr><td class="gutter">422</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">423</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** if game is over, display reason ***}</code></td></tr>
+<tr><td class="gutter">424</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Game.GameFinished <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">425</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">426</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GetFinishReason (Reason, IsWinner, Winner);</td></tr>
+<tr><td class="gutter">427</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (White);</td></tr>
+<tr><td class="gutter">428</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_TURN + 3, Reason + <code class="string">':'</code>);</td></tr>
+<tr><td class="gutter">429</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightGreen);</td></tr>
+<tr><td class="gutter">430</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> IsWinner <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">431</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_MOVE - 1, Player[Winner].Name)</td></tr>
+<tr><td class="gutter">432</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">433</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_MOVE, <code class="string">'Neither Player'</code>);</td></tr>
+<tr><td class="gutter">434</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_HINT, <code class="string">'Wins'</code>);</td></tr>
+<tr><td class="gutter">435</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">436</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">437</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">438</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_TURN, Player[Turn].Name);</td></tr>
+<tr><td class="gutter">439</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">440</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">441</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** warn if fifty move stalemate is close ***}</code></td></tr>
+<tr><td class="gutter">442</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NoDevCount := Game.NonDevMoveCount[Game.MovesPointer];</td></tr>
+<tr><td class="gutter">443</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (MSG_WARN50, 17);</td></tr>
+<tr><td class="gutter">444</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (NoDevCount &gt;= NON_DEV_MOVE_LIMIT - 10) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">445</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">446</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightRed);</td></tr>
+<tr><td class="gutter">447</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (NoDevCount = NON_DEV_MOVE_LIMIT) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">448</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_WARN50, <code class="string">'50 Move Limit'</code>)</td></tr>
+<tr><td class="gutter">449</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">450</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">451</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Str(NON_DEV_MOVE_LIMIT - NoDevCount, cstr);</td></tr>
+<tr><td class="gutter">452</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_WARN50, <code class="string">'Stalemate in '</code> + cstr);</td></tr>
+<tr><td class="gutter">453</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">454</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">455</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">456</td><td class="code"></td></tr>
+<tr><td class="gutter">457</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">458</td><td class="code"><code class="comments">{* Display Conversation Area: display player status for black and white, *}</code></td></tr>
+<tr><td class="gutter">459</td><td class="code"><code class="comments">{* move status, and time limit, all in the conversation area. *}</code></td></tr>
+<tr><td class="gutter">460</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">461</td><td class="code"><code class="keyword">procedure</code> DisplayConversationArea;</td></tr>
+<tr><td class="gutter">462</td><td class="code"><code class="keyword">var</code> tempstr : string80;</td></tr>
+<tr><td class="gutter">463</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">464</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, DarkGray);</td></tr>
+<tr><td class="gutter">465</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (MESSAGE_X, MSG_CONV, GetMaxX, INSTR_LINE - 8);</td></tr>
+<tr><td class="gutter">466</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (White);</td></tr>
+<tr><td class="gutter">467</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rectangle (MSG_BOXX1, MSG_WHITE-2, MSG_BOXX2, MSG_WHITE + MSG_PLHI);</td></tr>
+<tr><td class="gutter">468</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (DefaultFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">469</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (MSG_BOXX1 + 4, MSG_WHITE - 10, <code class="string">'White'</code>);</td></tr>
+<tr><td class="gutter">470</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayPlayerInfo (MSG_WHITE, C_WHITE);</td></tr>
+<tr><td class="gutter">471</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Black);</td></tr>
+<tr><td class="gutter">472</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rectangle (MSG_BOXX1, MSG_BLACK-2, MSG_BOXX2, MSG_BLACK + MSG_PLHI);</td></tr>
+<tr><td class="gutter">473</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (DefaultFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">474</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (MSG_BOXX1 + 4, MSG_BLACK - 10, <code class="string">'Black'</code>);</td></tr>
+<tr><td class="gutter">475</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayPlayerInfo (MSG_BLACK, C_BLACK);</td></tr>
+<tr><td class="gutter">476</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Cyan);</td></tr>
+<tr><td class="gutter">477</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rectangle (MSG_BOXX1, 356, MSG_BOXX2, 438);</td></tr>
+<tr><td class="gutter">478</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">479</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightGreen);</td></tr>
+<tr><td class="gutter">480</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Game.TimeLimit = 0) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">481</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tempstr := <code class="string">'&lt;none&gt;'</code></td></tr>
+<tr><td class="gutter">482</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">483</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tempstr := TimeString (Game.TimeLimit);</td></tr>
+<tr><td class="gutter">484</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (MSG_TIME_LIMIT, <code class="string">'T.Limit = '</code> + tempstr);</td></tr>
+<tr><td class="gutter">485</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayWhoseMove;</td></tr>
+<tr><td class="gutter">486</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">487</td><td class="code"></td></tr>
+<tr><td class="gutter">488</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">489</td><td class="code"><code class="comments">{* Display Game Screen: clear the hires screen, display the board, *}</code></td></tr>
+<tr><td class="gutter">490</td><td class="code"><code class="comments">{* conversation area, and instructions. *}</code></td></tr>
+<tr><td class="gutter">491</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">492</td><td class="code"><code class="keyword">procedure</code> DisplayGameScreen;</td></tr>
+<tr><td class="gutter">493</td><td class="code"><code class="keyword">var</code> i : integer;</td></tr>
+<tr><td class="gutter">494</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">495</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClearDevice;</td></tr>
+<tr><td class="gutter">496</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** display board ***}</code></td></tr>
+<tr><td class="gutter">497</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, Blue);</td></tr>
+<tr><td class="gutter">498</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (BOARD_X1-4, BOARD_Y1-4, BOARD_X2+3, BOARD_Y2+3);</td></tr>
+<tr><td class="gutter">499</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayBoard;</td></tr>
+<tr><td class="gutter">500</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">501</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** display row and column letters and numbers around board ***}</code></td></tr>
+<tr><td class="gutter">502</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightGreen);</td></tr>
+<tr><td class="gutter">503</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 2);</td></tr>
+<tr><td class="gutter">504</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i := 1 to 8 <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">505</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">506</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (0, BOARD_Y1+HIGH*i-8-HIGH div 2,</td></tr>
+<tr><td class="gutter">507</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copy (ROW_NAMES, BOARD_SIZE - i + 1, 1));</td></tr>
+<tr><td class="gutter">508</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (BOARD_X2 + 10, BOARD_Y1+HIGH*i-8-HIGH div 2,</td></tr>
+<tr><td class="gutter">509</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copy (ROW_NAMES, BOARD_SIZE - i + 1, 1));</td></tr>
+<tr><td class="gutter">510</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OutTextXY (BOARD_X1+WIDE*i-8-WIDE div 2, BOARD_Y2+4,</td></tr>
+<tr><td class="gutter">511</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copy (COL_NAMES, i, 1));</td></tr>
+<tr><td class="gutter">512</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">513</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">514</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** display title and conversation area ***}</code></td></tr>
+<tr><td class="gutter">515</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetFillStyle (SolidFill, DarkGray);</td></tr>
+<tr><td class="gutter">516</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bar (MESSAGE_X, 0, GetMaxX, MSG_CONV - 1);</td></tr>
+<tr><td class="gutter">517</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 4);</td></tr>
+<tr><td class="gutter">518</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (LightCyan);</td></tr>
+<tr><td class="gutter">519</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (2, <code class="string">'KC CHESS'</code>);</td></tr>
+<tr><td class="gutter">520</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayConversationArea;</td></tr>
+<tr><td class="gutter">521</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">522</td><td class="code"></td></tr>
+<tr><td class="gutter">523</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">524</td><td class="code"><code class="comments">{* Update Time: get the elapsed time since last call, and if there was a *}</code></td></tr>
+<tr><td class="gutter">525</td><td class="code"><code class="comments">{* change in the time, the amount of change is added to the current *}</code></td></tr>
+<tr><td class="gutter">526</td><td class="code"><code class="comments">{* player's elapsed time and the new time is displayed. *}</code></td></tr>
+<tr><td class="gutter">527</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">528</td><td class="code"><code class="keyword">procedure</code> UpdateTime (Turn : PieceColorType);</td></tr>
+<tr><td class="gutter">529</td><td class="code"><code class="keyword">var</code> Elapsed : longint;</td></tr>
+<tr><td class="gutter">530</td><td class="code">Row : integer;</td></tr>
+<tr><td class="gutter">531</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">532</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elapsed := ElapsedTime;</td></tr>
+<tr><td class="gutter">533</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Elapsed &gt; 0) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">534</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">535</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Player[Turn].ElapsedTime := Player[Turn].ElapsedTime + Elapsed;</td></tr>
+<tr><td class="gutter">536</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Turn = C_WHITE) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">537</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Row := MSG_WHITE + MSG_CHI</td></tr>
+<tr><td class="gutter">538</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code></td></tr>
+<tr><td class="gutter">539</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Row := MSG_BLACK + MSG_CHI;</td></tr>
+<tr><td class="gutter">540</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (Row, 17);</td></tr>
+<tr><td class="gutter">541</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">542</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Yellow);</td></tr>
+<tr><td class="gutter">543</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (Row, TimeString(Player[Turn].ElapsedTime));</td></tr>
+<tr><td class="gutter">544</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">545</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">546</td><td class="code"></td></tr>
+<tr><td class="gutter">547</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">548</td><td class="code"><code class="comments">{* Flash Piece: will flash the piece at the given location on the Board *}</code></td></tr>
+<tr><td class="gutter">549</td><td class="code"><code class="comments">{* alternately against the other given piece image and color. This *}</code></td></tr>
+<tr><td class="gutter">550</td><td class="code"><code class="comments">{* routine is called to highlight the piece that is moving and what it *}</code></td></tr>
+<tr><td class="gutter">551</td><td class="code"><code class="comments">{* takes when a move is being displayed. *}</code></td></tr>
+<tr><td class="gutter">552</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">553</td><td class="code"><code class="keyword">procedure</code> FlashPiece (row, col : RowColType; OldImage : PieceImageType;</td></tr>
+<tr><td class="gutter">554</td><td class="code">OldColor : PieceColorType);</td></tr>
+<tr><td class="gutter">555</td><td class="code"><code class="keyword">var</code> NewImage : PieceImageType;</td></tr>
+<tr><td class="gutter">556</td><td class="code">NewColor : PieceColorType;</td></tr>
+<tr><td class="gutter">557</td><td class="code">i : integer;</td></tr>
+<tr><td class="gutter">558</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">559</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewImage := Board[row, col].image;</td></tr>
+<tr><td class="gutter">560</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewColor := Board[row, col].color;</td></tr>
+<tr><td class="gutter">561</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i := 1 to Game.FlashCount <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">562</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">563</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row,col].image := NewImage; <code class="comments">{*** show new image ***}</code></td></tr>
+<tr><td class="gutter">564</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row,col].color := NewColor;</td></tr>
+<tr><td class="gutter">565</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplaySquare (row, col, false);</td></tr>
+<tr><td class="gutter">566</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay (80);</td></tr>
+<tr><td class="gutter">567</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row,col].image := OldImage; <code class="comments">{*** show old image ***}</code></td></tr>
+<tr><td class="gutter">568</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row,col].color := OldColor;</td></tr>
+<tr><td class="gutter">569</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplaySquare (row, col, false);</td></tr>
+<tr><td class="gutter">570</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delay (80);</td></tr>
+<tr><td class="gutter">571</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">572</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row, col].image := NewImage; <code class="comments">{*** store new image ***}</code></td></tr>
+<tr><td class="gutter">573</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Board[row, col].color := NewColor;</td></tr>
+<tr><td class="gutter">574</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplaySquare (row, col, false);</td></tr>
+<tr><td class="gutter">575</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">576</td><td class="code"></td></tr>
+<tr><td class="gutter">577</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">578</td><td class="code"><code class="comments">{* Display Move: displays the given move on the screen after it has *}</code></td></tr>
+<tr><td class="gutter">579</td><td class="code"><code class="comments">{* already been made to the internal data structures. The special cases *}</code></td></tr>
+<tr><td class="gutter">580</td><td class="code"><code class="comments">{* of castling and en passent are taken care of. No special case is *}</code></td></tr>
+<tr><td class="gutter">581</td><td class="code"><code class="comments">{* required for pawn promotion, since it is taken care of elsewhere. *}</code></td></tr>
+<tr><td class="gutter">582</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">583</td><td class="code"><code class="keyword">procedure</code> DisplayMove (Movement : MoveType);</td></tr>
+<tr><td class="gutter">584</td><td class="code"><code class="keyword">var</code> row, EnemyRow : integer;</td></tr>
+<tr><td class="gutter">585</td><td class="code">cstr : string10;</td></tr>
+<tr><td class="gutter">586</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">587</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** for all moves, show the piece leaving old square and taking new square ***}</code></td></tr>
+<tr><td class="gutter">588</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with Movement <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">589</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">590</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (FromRow, FromCol, PieceMoved.image, PieceMoved.color);</td></tr>
+<tr><td class="gutter">591</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (ToRow, ToCol, PieceTaken.image, PieceTaken.color);</td></tr>
+<tr><td class="gutter">592</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">593</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case Movement.PieceMoved.image <code class="keyword">of</code></td></tr>
+<tr><td class="gutter">594</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">595</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** castling to left or right: must show rook moving ***}</code></td></tr>
+<tr><td class="gutter">596</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KING: </td></tr>
+<tr><td class="gutter">597</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">598</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> abs (Movement.FromCol - Movement.ToCol) &gt; 1 <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">599</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">600</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Movement.ToCol &lt; Movement.FromCol) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">601</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">602</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 1, ROOK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">603</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 4, BLANK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">604</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">605</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">606</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">607</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 8, ROOK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">608</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 6, BLANK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">609</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">610</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">611</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">612</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">613</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** en passent: must show the pawn being taken ***}</code></td></tr>
+<tr><td class="gutter">614</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAWN: <code class="keyword">if</code> (Movement.FromCol &lt;&gt; Movement.ToCol) and (Movement.PieceTaken.image = BLANK) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">615</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, Movement.ToCol, PAWN, EnemyColor[Movement.PieceMoved.color]);</td></tr>
+<tr><td class="gutter">616</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">617</td><td class="code"></td></tr>
+<tr><td class="gutter">618</td><td class="code"><code class="comments">{*** locate and display the new last move and in-check status ***}</code></td></tr>
+<tr><td class="gutter">619</td><td class="code"><code class="keyword">if</code> Movement.PieceMoved.color = C_WHITE <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">620</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">621</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row := MSG_WHITE;</td></tr>
+<tr><td class="gutter">622</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EnemyRow := MSG_BLACK;</td></tr>
+<tr><td class="gutter">623</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">624</td><td class="code"><code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">625</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">626</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row := MSG_BLACK;</td></tr>
+<tr><td class="gutter">627</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EnemyRow := MSG_WHITE;</td></tr>
+<tr><td class="gutter">628</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">629</td><td class="code">DisplayClearLines (row + MSG_CHI * 3, 34);</td></tr>
+<tr><td class="gutter">630</td><td class="code">SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">631</td><td class="code">SetColor (Yellow);</td></tr>
+<tr><td class="gutter">632</td><td class="code">CenterText (row + MSG_CHI * 3, <code class="string">'Last: '</code> + MoveStr(Player[Movement.PieceMoved.color].LastMove));</td></tr>
+<tr><td class="gutter">633</td><td class="code">CenterText (row + MSG_CHI * 4, <code class="string">'Ok'</code>);</td></tr>
+<tr><td class="gutter">634</td><td class="code"><code class="keyword">if</code> Player[EnemyColor[Movement.PieceMoved.color]].InCheck <code class="keyword">then</code> cstr := <code class="string">'In Check'</code> <code class="keyword">else</code> cstr := <code class="string">'Ok'</code>;</td></tr>
+<tr><td class="gutter">635</td><td class="code">DisplayClearLines (EnemyRow + MSG_CHI * 4, 17);</td></tr>
+<tr><td class="gutter">636</td><td class="code">CenterText (EnemyRow + MSG_CHI * 4, cstr);</td></tr>
+<tr><td class="gutter">637</td><td class="code"><code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">638</td><td class="code"></td></tr>
+<tr><td class="gutter">639</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">640</td><td class="code"><code class="comments">{* Display UnMade Move: display a move being retracted after the internal *}</code></td></tr>
+<tr><td class="gutter">641</td><td class="code"><code class="comments">{* data structures have been modified. Special cases are un-castle and *}</code></td></tr>
+<tr><td class="gutter">642</td><td class="code"><code class="comments">{* un-en passent. *}</code></td></tr>
+<tr><td class="gutter">643</td><td class="code"><code class="comments">{****************************************************************************}</code></td></tr>
+<tr><td class="gutter">644</td><td class="code"><code class="keyword">procedure</code> DisplayUnMadeMove (Movement : MoveType);</td></tr>
+<tr><td class="gutter">645</td><td class="code"><code class="keyword">var</code> row, EnemyRow : integer;</td></tr>
+<tr><td class="gutter">646</td><td class="code">cstr : string10;</td></tr>
+<tr><td class="gutter">647</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">648</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Movement.FromRow &lt;&gt; NULL_MOVE) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">649</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">650</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with Movement <code class="keyword">do</code> </td></tr>
+<tr><td class="gutter">651</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">652</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** retract for all pieces ***}</code></td></tr>
+<tr><td class="gutter">653</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (ToRow, ToCol, MovedImage, PieceMoved.color);</td></tr>
+<tr><td class="gutter">654</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (FromRow, FromCol, BLANK, C_WHITE);</td></tr>
+<tr><td class="gutter">655</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">656</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case Movement.PieceMoved.image <code class="keyword">of</code></td></tr>
+<tr><td class="gutter">657</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">658</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** un-castle ***}</code></td></tr>
+<tr><td class="gutter">659</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KING: </td></tr>
+<tr><td class="gutter">660</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">661</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> abs (Movement.FromCol - Movement.ToCol) &gt; 1 <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">662</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">663</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Movement.ToCol &lt; Movement.FromCol) <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">664</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">665</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 4, ROOK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">666</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 1, BLANK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">667</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">668</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">669</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">670</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 6, ROOK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">671</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, 8, BLANK, Movement.PieceMoved.color);</td></tr>
+<tr><td class="gutter">672</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">673</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">674</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">675</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">676</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** un-en passent ***}</code></td></tr>
+<tr><td class="gutter">677</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAWN: <code class="keyword">if</code> (Movement.FromCol &lt;&gt; Movement.ToCol) and (Movement.PieceTaken.image = BLANK) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">678</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlashPiece (Movement.FromRow, Movement.ToCol, BLANK, EnemyColor[Movement.PieceMoved.color]);</td></tr>
+<tr><td class="gutter">679</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">680</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">681</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{*** update status for both players ***}</code></td></tr>
+<tr><td class="gutter">682</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Movement.PieceMoved.color = C_WHITE <code class="keyword">then</code> </td></tr>
+<tr><td class="gutter">683</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">684</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row := MSG_WHITE;</td></tr>
+<tr><td class="gutter">685</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EnemyRow := MSG_BLACK;</td></tr>
+<tr><td class="gutter">686</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code> </td></tr>
+<tr><td class="gutter">687</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">else</code> </td></tr>
+<tr><td class="gutter">688</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">689</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row := MSG_BLACK;</td></tr>
+<tr><td class="gutter">690</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EnemyRow := MSG_WHITE;</td></tr>
+<tr><td class="gutter">691</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">692</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (row + MSG_CHI * 3, 34);</td></tr>
+<tr><td class="gutter">693</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetTextStyle (TriplexFont, HorizDir, 1);</td></tr>
+<tr><td class="gutter">694</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetColor (Yellow);</td></tr>
+<tr><td class="gutter">695</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI * 3, <code class="string">'Last: '</code> + MoveStr(Player[Movement.PieceMoved.color].LastMove));</td></tr>
+<tr><td class="gutter">696</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> Player[Movement.PieceMoved.color].InCheck <code class="keyword">then</code> cstr := <code class="string">'In Check'</code> <code class="keyword">else</code> cstr := <code class="string">'Ok'</code>;</td></tr>
+<tr><td class="gutter">697</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (row + MSG_CHI * 4, cstr);</td></tr>
+<tr><td class="gutter">698</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayClearLines (EnemyRow + MSG_CHI * 4, 17);</td></tr>
+<tr><td class="gutter">699</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CenterText (EnemyRow + MSG_CHI * 4, <code class="string">'Ok'</code>);</td></tr>
+<tr><td class="gutter">700</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DisplayWhoseMove;</td></tr>
+<tr><td class="gutter">701</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">702</td><td class="code"><code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">703</td><td class="code"></td></tr>
+<tr><td class="gutter">704</td><td class="code"><code class="comments">{*** end of DISPLAY.PAS include file ***}</code></td></tr>
+<tr><td class="gutter">705</td><td class="code"></td></tr></table>
+    </body>
+</html>

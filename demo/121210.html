@@ -1,0 +1,502 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zápočťák > Pretty Printer</title>
+  
+  <style>
+    /**
+ * SyntaxHighlighter
+ * http://alexgorbatchev.com/SyntaxHighlighter
+ *
+ * SyntaxHighlighter is donationware. If you are using it, please donate.
+ * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
+ *
+ * @version
+ * 3.0.83 (July 02 2010)
+ * 
+ * @copyright
+ * Copyright (C) 2004-2010 Alex Gorbatchev.
+ *
+ * @license
+ * Dual licensed under the MIT and GPL licenses.
+ */
+body { font-size: 17px; } 
+
+.syntaxhighlighter,
+.syntaxhighlighter a,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody,
+.syntaxhighlighter table thead,
+.syntaxhighlighter table caption,
+.syntaxhighlighter textarea {
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0 0 0 0;
+  background: none;
+  border: 0;
+  border-spacing: 0;
+  bottom: auto;
+  float: none;
+  height: auto;
+  left: auto;
+  line-height: 1.1em;
+  margin: 0;
+  outline: 0;
+  overflow: visible;
+  padding: 0;
+  position: static;
+  right: auto;
+  text-align: left;
+  top: auto;
+  vertical-align: baseline;
+  width: auto;
+  box-sizing: content-box;
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  min-height: inherit;
+  min-height: auto;
+}
+
+.syntaxhighlighter {
+  background-color: white;
+  width: 100%;
+  margin: 1em 0 1em 0;
+  position: relative;
+  font-size: 1em;
+}
+
+.syntaxhighlighter tr:nth-of-type(even) {
+  background: rgba(220, 220, 220, .25);
+}
+
+.syntaxhighlighter .gutter {
+  color: #afafaf;
+  border-right: 3px solid #6ce26c;
+  text-align: right;
+  padding: 0 .5em;
+  vertical-align: top;
+}
+
+.syntaxhighlighter tr.highlighted { background-color: #e0e0e0; }
+.syntaxhighlighter tr.highlighted .gutter {
+  background-color: #6ce26c;
+  color: white;
+}
+
+.syntaxhighlighter .plain,
+.syntaxhighlighter .plain a {           color: black; }
+.syntaxhighlighter .comments,
+.syntaxhighlighter .comments a {        color: #008200; }
+.syntaxhighlighter .string,
+.syntaxhighlighter .string a {          color: blue; }
+.syntaxhighlighter .keyword {           color: #006699; }
+.syntaxhighlighter .preprocessor {      color: gray; }
+.syntaxhighlighter .variable {          color: #aa7700; }
+.syntaxhighlighter .value {             color: #009900; }
+.syntaxhighlighter .functions {         color: #ff1493; }
+.syntaxhighlighter .constants {         color: #0066cc; }
+.syntaxhighlighter .script {
+  font-weight: bold;
+  color: #006699;
+  background-color: none;
+}
+.syntaxhighlighter .color1,
+.syntaxhighlighter .color1 a {          color: gray; }
+.syntaxhighlighter .color2,
+.syntaxhighlighter .color2 a {          color: #ff1493; }
+.syntaxhighlighter .color3,
+.syntaxhighlighter .color3 a {          color: red; }
+
+.syntaxhighlighter .keyword { font-weight: bold; }
+
+.syntaxhighlighter .code { padding-left: 1em; }
+.syntaxhighlighter tr:hover { background: rgba(0, 102, 153, .2); }
+</style>     
+</head>
+  
+<body>
+  
+  <table border=0 class="syntaxhighlighter">
+<tr><td class="gutter">1</td><td class="code"><code class="keyword">const</code></td></tr>
+<tr><td class="gutter">2</td><td class="code">MAX = 1000;</td></tr>
+<tr><td class="gutter">3</td><td class="code"><code class="keyword">type</code></td></tr>
+<tr><td class="gutter">4</td><td class="code">TCislice = 0..9;</td></tr>
+<tr><td class="gutter">5</td><td class="code">TCislo = <code class="keyword">array</code>[0..MAX] <code class="keyword">of</code> TCislice; <code class="comments">{ pozpatku - tj. x[i] = 10^i }</code></td></tr>
+<tr><td class="gutter">6</td><td class="code"></td></tr>
+<tr><td class="gutter">7</td><td class="code"></td></tr>
+<tr><td class="gutter">8</td><td class="code"></td></tr>
+<tr><td class="gutter">9</td><td class="code"></td></tr>
+<tr><td class="gutter">10</td><td class="code"></td></tr>
+<tr><td class="gutter">11</td><td class="code"><code class="keyword">procedure</code> Vytiskni( Co: TCislo );</td></tr>
+<tr><td class="gutter">12</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">13</td><td class="code">UzBylaNenulovaCifra: boolean;</td></tr>
+<tr><td class="gutter">14</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">15</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UzBylaNenulovaCifra := FALSE;</td></tr>
+<tr><td class="gutter">16</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=MAX downto 0 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">17</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (Co[i]&lt;&gt;0) or UzBylaNenulovaCifra <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">18</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">19</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write( Co[i] );</td></tr>
+<tr><td class="gutter">20</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UzBylaNenulovaCifra := TRUE</td></tr>
+<tr><td class="gutter">21</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">22</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln</td></tr>
+<tr><td class="gutter">23</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">24</td><td class="code"></td></tr>
+<tr><td class="gutter">25</td><td class="code"><code class="keyword">procedure</code> Dosad( Co: TCislice; <code class="keyword">var</code> Kam: TCislo );</td></tr>
+<tr><td class="gutter">26</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">27</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">28</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[0] := Co;</td></tr>
+<tr><td class="gutter">29</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">30</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[i] := 0</td></tr>
+<tr><td class="gutter">31</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">32</td><td class="code"></td></tr>
+<tr><td class="gutter">33</td><td class="code"><code class="keyword">procedure</code> ZvetsOJedna( <code class="keyword">var</code> Co: TCislo );</td></tr>
+<tr><td class="gutter">34</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">35</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">36</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i := 0;</td></tr>
+<tr><td class="gutter">37</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{$B-}</code></td></tr>
+<tr><td class="gutter">38</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">while</code> (i&lt;=MAX) and (Co[i]=9) <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">39</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">40</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co[i] := 0;</td></tr>
+<tr><td class="gutter">41</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inc( i )</td></tr>
+<tr><td class="gutter">42</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">43</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">44</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> (i&lt;=MAX) <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">45</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inc( Co[i] )</td></tr>
+<tr><td class="gutter">46</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">47</td><td class="code"></td></tr>
+<tr><td class="gutter">48</td><td class="code"><code class="keyword">procedure</code> Vynasob( <code class="keyword">var</code> Co: TCislo; Cim: TCislo );</td></tr>
+<tr><td class="gutter">49</td><td class="code"><code class="keyword">var</code> PoziceVeVysledku: integer;</td></tr>
+<tr><td class="gutter">50</td><td class="code">i, prenos, x: integer;</td></tr>
+<tr><td class="gutter">51</td><td class="code">Vysledek: TCislo;</td></tr>
+<tr><td class="gutter">52</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">53</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">54</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := 0;</td></tr>
+<tr><td class="gutter">55</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">56</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> PoziceVeVysledku := 0 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">57</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">58</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := prenos;</td></tr>
+<tr><td class="gutter">59</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=0 to PoziceVeVysledku <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">60</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="comments">{ i .... (PoziceVeVysledku-i) }</code></td></tr>
+<tr><td class="gutter">61</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := x + Co[i] * Cim[ PoziceVeVysledku-i ];</td></tr>
+<tr><td class="gutter">62</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vysledek[ PoziceVeVysledku ] := x mod 10;</td></tr>
+<tr><td class="gutter">63</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := x div 10</td></tr>
+<tr><td class="gutter">64</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">65</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">66</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> prenos &gt; 0 <code class="keyword">then</code> RunError( 77 );</td></tr>
+<tr><td class="gutter">67</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">68</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co := Vysledek</td></tr>
+<tr><td class="gutter">69</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">70</td><td class="code"></td></tr>
+<tr><td class="gutter">71</td><td class="code"><code class="keyword">var</code></td></tr>
+<tr><td class="gutter">72</td><td class="code">Faktorial: TCislo;</td></tr>
+<tr><td class="gutter">73</td><td class="code">Clen: TCislo;</td></tr>
+<tr><td class="gutter">74</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">75</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">76</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 1, Faktorial );</td></tr>
+<tr><td class="gutter">77</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 1, Clen );</td></tr>
+<tr><td class="gutter">78</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=2 to 200 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">79</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">80</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vytiskni( Faktorial );</td></tr>
+<tr><td class="gutter">81</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZvetsOJedna( Clen );</td></tr>
+<tr><td class="gutter">82</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vynasob( Faktorial, Clen )</td></tr>
+<tr><td class="gutter">83</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">84</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vytiskni( Faktorial )</td></tr>
+<tr><td class="gutter">85</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">86</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>.</td></tr>
+<tr><td class="gutter">87</td><td class="code"></td></tr>
+<tr><td class="gutter">88</td><td class="code">Dosad( 1, Clen );</td></tr>
+<tr><td class="gutter">89</td><td class="code">ZvetsOJedna( Clen );</td></tr>
+<tr><td class="gutter">90</td><td class="code"></td></tr>
+<tr><td class="gutter">91</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">92</td><td class="code"></td></tr>
+<tr><td class="gutter">93</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">94</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">95</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">96</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">97</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">98</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">99</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">100</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">101</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">102</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">103</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">104</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">105</td><td class="code">Vynasob( Clen, Clen );</td></tr>
+<tr><td class="gutter">106</td><td class="code">Vytiskni( Clen );</td></tr>
+<tr><td class="gutter">107</td><td class="code"><code class="keyword">end</code>.</td></tr>
+<tr><td class="gutter">108</td><td class="code"></td></tr>
+<tr><td class="gutter">109</td><td class="code"></td></tr>
+<tr><td class="gutter">110</td><td class="code"></td></tr>
+<tr><td class="gutter">111</td><td class="code"></td></tr>
+<tr><td class="gutter">112</td><td class="code"><code class="keyword">var</code></td></tr>
+<tr><td class="gutter">113</td><td class="code">Faktorial: TCislo;</td></tr>
+<tr><td class="gutter">114</td><td class="code">Clen: TCislo;</td></tr>
+<tr><td class="gutter">115</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">116</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">117</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 1, Faktorial );</td></tr>
+<tr><td class="gutter">118</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to 100 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">119</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">120</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZvetsOJedna( Faktorial );</td></tr>
+<tr><td class="gutter">121</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vytiskni( Faktorial )</td></tr>
+<tr><td class="gutter">122</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">123</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>.</td></tr>
+<tr><td class="gutter">124</td><td class="code"></td></tr>
+<tr><td class="gutter">125</td><td class="code"></td></tr>
+<tr><td class="gutter">126</td><td class="code"></td></tr>
+<tr><td class="gutter">127</td><td class="code"></td></tr>
+<tr><td class="gutter">128</td><td class="code"></td></tr>
+<tr><td class="gutter">129</td><td class="code"></td></tr>
+<tr><td class="gutter">130</td><td class="code"></td></tr>
+<tr><td class="gutter">131</td><td class="code"></td></tr>
+<tr><td class="gutter">132</td><td class="code"></td></tr>
+<tr><td class="gutter">133</td><td class="code"></td></tr>
+<tr><td class="gutter">134</td><td class="code"></td></tr>
+<tr><td class="gutter">135</td><td class="code"></td></tr>
+<tr><td class="gutter">136</td><td class="code"></td></tr>
+<tr><td class="gutter">137</td><td class="code"><code class="keyword">const</code></td></tr>
+<tr><td class="gutter">138</td><td class="code">Navic = 7;</td></tr>
+<tr><td class="gutter">139</td><td class="code">MAX = 1000 + Navic;</td></tr>
+<tr><td class="gutter">140</td><td class="code"><code class="keyword">type</code></td></tr>
+<tr><td class="gutter">141</td><td class="code">TCislice = 0..9;</td></tr>
+<tr><td class="gutter">142</td><td class="code">TCislo = <code class="keyword">array</code>[0..MAX] <code class="keyword">of</code> TCislice;</td></tr>
+<tr><td class="gutter">143</td><td class="code"></td></tr>
+<tr><td class="gutter">144</td><td class="code"><code class="keyword">procedure</code> Vytiskni( Co: TCislo );</td></tr>
+<tr><td class="gutter">145</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">146</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">147</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write( Co[0],<code class="string">','</code> );</td></tr>
+<tr><td class="gutter">148</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">149</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write( Co[i] );</td></tr>
+<tr><td class="gutter">150</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln</td></tr>
+<tr><td class="gutter">151</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">152</td><td class="code"></td></tr>
+<tr><td class="gutter">153</td><td class="code"><code class="keyword">procedure</code> Dosad( Co: TCislice; <code class="keyword">var</code> Kam: TCislo );</td></tr>
+<tr><td class="gutter">154</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">155</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">156</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[0] := Co;</td></tr>
+<tr><td class="gutter">157</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">158</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[i] := 0</td></tr>
+<tr><td class="gutter">159</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">160</td><td class="code"></td></tr>
+<tr><td class="gutter">161</td><td class="code"><code class="keyword">procedure</code> Pricti( <code class="keyword">const</code> Co: TCislo; <code class="keyword">var</code> Kam: TCislo );</td></tr>
+<tr><td class="gutter">162</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">163</td><td class="code">prenos, x: integer;</td></tr>
+<tr><td class="gutter">164</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">165</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">166</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := 0;</td></tr>
+<tr><td class="gutter">167</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:= MAX downto 0 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">168</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">169</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := Co[i] + Kam[i] + prenos;</td></tr>
+<tr><td class="gutter">170</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[i] := x mod 10;</td></tr>
+<tr><td class="gutter">171</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := x div 10</td></tr>
+<tr><td class="gutter">172</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">173</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">174</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> prenos &gt; 0 <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">175</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RunError( 77 )</td></tr>
+<tr><td class="gutter">176</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">177</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">178</td><td class="code"></td></tr>
+<tr><td class="gutter">179</td><td class="code"><code class="keyword">var</code></td></tr>
+<tr><td class="gutter">180</td><td class="code">PrvniNenulovaPozice: integer;</td></tr>
+<tr><td class="gutter">181</td><td class="code"><code class="keyword">procedure</code> Vydel( <code class="keyword">var</code> Co: TCislo; Cim: integer );</td></tr>
+<tr><td class="gutter">182</td><td class="code"><code class="keyword">var</code> delenec: integer;</td></tr>
+<tr><td class="gutter">183</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">184</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">185</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">186</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">while</code> (PrvniNenulovaPozice&lt;=MAX)</td></tr>
+<tr><td class="gutter">187</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and (Co[ PrvniNenulovaPozice ]=0) <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">188</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inc( PrvniNenulovaPozice );</td></tr>
+<tr><td class="gutter">189</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">190</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := 0;</td></tr>
+<tr><td class="gutter">191</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=PrvniNenulovaPozice to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">192</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">193</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := 10*delenec + Co[i];</td></tr>
+<tr><td class="gutter">194</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">195</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co[i] := delenec div Cim;</td></tr>
+<tr><td class="gutter">196</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := delenec mod Cim;</td></tr>
+<tr><td class="gutter">197</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code></td></tr>
+<tr><td class="gutter">198</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">199</td><td class="code"></td></tr>
+<tr><td class="gutter">200</td><td class="code"><code class="keyword">var</code></td></tr>
+<tr><td class="gutter">201</td><td class="code">Soucet: TCislo;</td></tr>
+<tr><td class="gutter">202</td><td class="code">JednaLomenoIFaktorial: TCislo;</td></tr>
+<tr><td class="gutter">203</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">204</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">205</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrvniNenulovaPozice := 0;</td></tr>
+<tr><td class="gutter">206</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">207</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 0, Soucet );</td></tr>
+<tr><td class="gutter">208</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 1, JednaLomenoIFaktorial );</td></tr>
+<tr><td class="gutter">209</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">210</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i := 0;</td></tr>
+<tr><td class="gutter">211</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">while</code> PrvniNenulovaPozice &lt;= MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">212</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">213</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pricti( JednaLomenoIFaktorial, Soucet );</td></tr>
+<tr><td class="gutter">214</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vydel( JednaLomenoIFaktorial, i+1 );</td></tr>
+<tr><td class="gutter">215</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i := i+1;</td></tr>
+<tr><td class="gutter">216</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">217</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vytiskni( Soucet );</td></tr>
+<tr><td class="gutter">218</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln( <code class="string">'i='</code>,i)`</td></tr>
+<tr><td class="gutter">219</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>.</td></tr>
+<tr><td class="gutter">220</td><td class="code"></td></tr>
+<tr><td class="gutter">221</td><td class="code"></td></tr>
+<tr><td class="gutter">222</td><td class="code"></td></tr>
+<tr><td class="gutter">223</td><td class="code"></td></tr>
+<tr><td class="gutter">224</td><td class="code"></td></tr>
+<tr><td class="gutter">225</td><td class="code"></td></tr>
+<tr><td class="gutter">226</td><td class="code"></td></tr>
+<tr><td class="gutter">227</td><td class="code"></td></tr>
+<tr><td class="gutter">228</td><td class="code"></td></tr>
+<tr><td class="gutter">229</td><td class="code"></td></tr>
+<tr><td class="gutter">230</td><td class="code"></td></tr>
+<tr><td class="gutter">231</td><td class="code"></td></tr>
+<tr><td class="gutter">232</td><td class="code"></td></tr>
+<tr><td class="gutter">233</td><td class="code"></td></tr>
+<tr><td class="gutter">234</td><td class="code"></td></tr>
+<tr><td class="gutter">235</td><td class="code"><code class="keyword">const</code></td></tr>
+<tr><td class="gutter">236</td><td class="code">Navic = 7;</td></tr>
+<tr><td class="gutter">237</td><td class="code">MAX = 1000 + Navic;</td></tr>
+<tr><td class="gutter">238</td><td class="code"><code class="keyword">type</code></td></tr>
+<tr><td class="gutter">239</td><td class="code">TCislice = 0..9;</td></tr>
+<tr><td class="gutter">240</td><td class="code">TCislo = <code class="keyword">array</code>[0..MAX] <code class="keyword">of</code> TCislice;</td></tr>
+<tr><td class="gutter">241</td><td class="code"></td></tr>
+<tr><td class="gutter">242</td><td class="code"><code class="keyword">procedure</code> Vytiskni( Co: TCislo );</td></tr>
+<tr><td class="gutter">243</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">244</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">245</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write( Co[0],<code class="string">','</code> );</td></tr>
+<tr><td class="gutter">246</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">247</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write( Co[i] );</td></tr>
+<tr><td class="gutter">248</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln</td></tr>
+<tr><td class="gutter">249</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">250</td><td class="code"></td></tr>
+<tr><td class="gutter">251</td><td class="code"><code class="keyword">procedure</code> Dosad( Co: TCislice; <code class="keyword">var</code> Kam: TCislo );</td></tr>
+<tr><td class="gutter">252</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">253</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">254</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[0] := Co;</td></tr>
+<tr><td class="gutter">255</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=1 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">256</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[i] := 0</td></tr>
+<tr><td class="gutter">257</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">258</td><td class="code"></td></tr>
+<tr><td class="gutter">259</td><td class="code"><code class="keyword">procedure</code> Pricti( <code class="keyword">const</code> Co: TCislo; <code class="keyword">var</code> Kam: TCislo );</td></tr>
+<tr><td class="gutter">260</td><td class="code"><code class="keyword">var</code> i: integer;</td></tr>
+<tr><td class="gutter">261</td><td class="code">prenos, x: integer;</td></tr>
+<tr><td class="gutter">262</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">263</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">264</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := 0;</td></tr>
+<tr><td class="gutter">265</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:= MAX downto 0 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">266</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">267</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x := Co[i] + Kam[i] + prenos;</td></tr>
+<tr><td class="gutter">268</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kam[i] := x mod 10;</td></tr>
+<tr><td class="gutter">269</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prenos := x div 10</td></tr>
+<tr><td class="gutter">270</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">271</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">272</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">if</code> prenos &gt; 0 <code class="keyword">then</code></td></tr>
+<tr><td class="gutter">273</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RunError( 77 )</td></tr>
+<tr><td class="gutter">274</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">275</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">276</td><td class="code"></td></tr>
+<tr><td class="gutter">277</td><td class="code"><code class="keyword">procedure</code> Vydel( <code class="keyword">var</code> Co: TCislo; Cim: integer );</td></tr>
+<tr><td class="gutter">278</td><td class="code"><code class="keyword">var</code> delenec: integer;</td></tr>
+<tr><td class="gutter">279</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">280</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">281</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">282</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := 0;</td></tr>
+<tr><td class="gutter">283</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=0 to MAX <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">284</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">285</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := 10*delenec + Co[i];</td></tr>
+<tr><td class="gutter">286</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">287</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co[i] := delenec div Cim;</td></tr>
+<tr><td class="gutter">288</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delenec := delenec mod Cim;</td></tr>
+<tr><td class="gutter">289</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code></td></tr>
+<tr><td class="gutter">290</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">291</td><td class="code"></td></tr>
+<tr><td class="gutter">292</td><td class="code"><code class="keyword">var</code></td></tr>
+<tr><td class="gutter">293</td><td class="code">Soucet: TCislo;</td></tr>
+<tr><td class="gutter">294</td><td class="code">JednaLomenoIFaktorial: TCislo;</td></tr>
+<tr><td class="gutter">295</td><td class="code">i: integer;</td></tr>
+<tr><td class="gutter">296</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">297</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 0, Soucet );</td></tr>
+<tr><td class="gutter">298</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dosad( 1, JednaLomenoIFaktorial );</td></tr>
+<tr><td class="gutter">299</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td class="gutter">300</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">for</code> i:=0 to 1000 <code class="keyword">do</code></td></tr>
+<tr><td class="gutter">301</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">begin</code></td></tr>
+<tr><td class="gutter">302</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pricti( JednaLomenoIFaktorial, Soucet );</td></tr>
+<tr><td class="gutter">303</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vydel( JednaLomenoIFaktorial, i+1 ) <code class="comments">{}</code></td></tr>
+<tr><td class="gutter">304</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>;</td></tr>
+<tr><td class="gutter">305</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vytiskni( Soucet )</td></tr>
+<tr><td class="gutter">306</td><td class="code">&nbsp;&nbsp;&nbsp;&nbsp;<code class="keyword">end</code>.</td></tr>
+<tr><td class="gutter">307</td><td class="code"><code class="comments">(*******************************</td></tr>
+<tr><td class="gutter">308</td><td class="code"><code class="comments">var x: TCislo;</td></tr>
+<tr><td class="gutter">309</td><td class="code"><code class="comments">begin</td></tr>
+<tr><td class="gutter">310</td><td class="code"><code class="comments">Dosad( 8, x );</td></tr>
+<tr><td class="gutter">311</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">312</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">313</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">314</td><td class="code"><code class="comments">Vydel( x, 1000 );</td></tr>
+<tr><td class="gutter">315</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">316</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">317</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">318</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">319</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">320</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">321</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">322</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">323</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">324</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">325</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">326</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">327</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">328</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">329</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">330</td><td class="code"><code class="comments">Vydel( x, 2 );</td></tr>
+<tr><td class="gutter">331</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">332</td><td class="code"><code class="comments"></td></tr>
+<tr><td class="gutter">333</td><td class="code"><code class="comments"></td></tr>
+<tr><td class="gutter">334</td><td class="code"><code class="comments"></td></tr>
+<tr><td class="gutter">335</td><td class="code"><code class="comments"></td></tr>
+<tr><td class="gutter">336</td><td class="code"><code class="comments">Dosad( 0, x );</td></tr>
+<tr><td class="gutter">337</td><td class="code"><code class="comments">x[MAX] := 1;</td></tr>
+<tr><td class="gutter">338</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">339</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">340</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">341</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">342</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">343</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">344</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">345</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">346</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">347</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">348</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">349</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">350</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">351</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">352</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">353</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">354</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">355</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">356</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">357</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">358</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">359</td><td class="code"><code class="comments">Pricti( x, x );</td></tr>
+<tr><td class="gutter">360</td><td class="code"><code class="comments">Vytiskni( x );</td></tr>
+<tr><td class="gutter">361</td><td class="code"><code class="comments">end.</td></tr>
+<tr><td class="gutter">362</td><td class="code"><code class="comments"></td></tr>
+<tr><td class="gutter">363</td><td class="code"><code class="comments">***********************************)</code></td></tr>
+<tr><td class="gutter">364</td><td class="code"></td></tr>
+<tr><td class="gutter">365</td><td class="code"></td></tr>
+<tr><td class="gutter">366</td><td class="code"></td></tr>
+<tr><td class="gutter">367</td><td class="code"></td></tr>
+<tr><td class="gutter">368</td><td class="code"></td></tr>
+<tr><td class="gutter">369</td><td class="code"></td></tr>
+<tr><td class="gutter">370</td><td class="code"></td></tr>
+<tr><td class="gutter">371</td><td class="code"></td></tr>
+<tr><td class="gutter">372</td><td class="code"></td></tr>
+<tr><td class="gutter">373</td><td class="code"></td></tr>
+<tr><td class="gutter">374</td><td class="code"></td></tr>
+<tr><td class="gutter">375</td><td class="code"></td></tr></table>
+  
+</body>
+</html>

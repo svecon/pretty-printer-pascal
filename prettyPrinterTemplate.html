@@ -1,0 +1,112 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Zápočťák > Pretty Printer</title>
+	<style>
+    /**
+     * SyntaxHighlighter styles - modified
+     * http://alexgorbatchev.com/SyntaxHighlighter
+     */
+    body { font-size: 17px; } 
+  
+    .prettyprinter,
+    .prettyprinter a,
+    .prettyprinter div,
+    .prettyprinter code,
+    .prettyprinter table,
+    .prettyprinter table td,
+    .prettyprinter table tr,
+    .prettyprinter table tbody,
+    .prettyprinter table thead,
+    .prettyprinter table caption,
+    .prettyprinter textarea {
+    		-moz-border-radius: 0 0 0 0;
+    		-webkit-border-radius: 0 0 0 0;
+    		background: none;
+    		border: 0;
+    		border-spacing: 0;
+    		bottom: auto;
+    		float: none;
+    		height: auto;
+    		left: auto;
+    		line-height: 1.1em;
+    		margin: 0;
+    		outline: 0;
+    		overflow: visible;
+    		padding: 0;
+    		position: static;
+    		right: auto;
+    		text-align: left;
+    		top: auto;
+    		vertical-align: baseline;
+    		width: auto;
+    		box-sizing: content-box;
+    		font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    		font-weight: normal;
+    		font-style: normal;
+    		font-size: 1em;
+    		min-height: inherit;
+    		min-height: auto;
+    }
+  
+    .prettyprinter {
+    		background-color: white;
+    		width: 100%;
+    		margin: 1em 0 1em 0;
+    		position: relative;
+    		font-size: 1em;
+    }
+  
+    .prettyprinter tr:nth-of-type(even) {
+    		background: rgba(220, 220, 220, .25);
+    }
+  
+    .prettyprinter .gutter {
+    		color: #afafaf;
+    		border-right: 3px solid #6ce26c;
+    		text-align: right;
+    		padding: 0 .5em;
+    		vertical-align: top;
+    }
+  
+    .prettyprinter tr.highlighted { background-color: #e0e0e0; }
+    .prettyprinter tr.highlighted .gutter {
+    		background-color: #6ce26c;
+    		color: white;
+    }
+  
+    .prettyprinter .plain,
+    .prettyprinter .plain a {           color: black; }
+    .prettyprinter .comments,
+    .prettyprinter .comments a {        color: #008200; }
+    .prettyprinter .string,
+    .prettyprinter .string a {          color: blue; }
+    .prettyprinter .keyword {           color: #006699; }
+    .prettyprinter .preprocessor {      color: gray; }
+    .prettyprinter .variable {          color: #aa7700; }
+    .prettyprinter .value {             color: #009900; }
+    .prettyprinter .functions {         color: #ff1493; }
+    .prettyprinter .constants {         color: #0066cc; }
+    .prettyprinter .script {
+    		font-weight: bold;
+    		color: #006699;
+    		background-color: none;
+    }
+    .prettyprinter .color1,
+    .prettyprinter .color1 a {          color: gray; }
+    .prettyprinter .color2,
+    .prettyprinter .color2 a {          color: #ff1493; }
+    .prettyprinter .color3,
+    .prettyprinter .color3 a {          color: red; }
+  
+    .prettyprinter .keyword { font-weight: bold; }
+  
+    .prettyprinter .code { padding-left: 1em; }
+    .prettyprinter tr:hover { background: rgba(0, 102, 153, .2); }
+	</style>     
+</head>
+<body>
+  <!-- Only this line is needed in template file -->
+	{$output}
+</body>
+</html>
